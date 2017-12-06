@@ -7,7 +7,7 @@ ENV NAMI_DEBUG 1
 ENV DISABLE_LAUNCH_TRACKING 1
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 8.9.1
+ENV NODE_VERSION 8.9.2
 
 RUN groupadd --gid 1000 node \
     && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
@@ -26,9 +26,7 @@ RUN install_packages gnupg dirmngr \
         56730D5401028683275BD23C23EFEFE93C4CFFFE \
         77984A986EBC2AA786BC0F66B01FBB92821C587A \
     ; do \
-    gpg --keyserver pool.sks-keyservers.net --recv-keys "$key" || \
-    gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
-    gpg --keyserver keyserver.pgp.com --recv-keys "$key" ; \
+    gpg --keyserver pool.sks-keyservers.net --recv-keys "$key" ; \
   done
 
 RUN install_packages \
