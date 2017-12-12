@@ -7,7 +7,7 @@ ENV NAMI_DEBUG 1
 ENV DISABLE_LAUNCH_TRACKING 1
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 8.9.2
+ENV NODE_VERSION 8.9.3
 
 RUN groupadd --gid 1000 node \
     && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
