@@ -14,8 +14,8 @@ RUN groupadd --gid 1000 node \
 
 # Node release team GPG keys
 # https://github.com/nodejs/node#release-team
-RUN install_packages gnupg dirmngr \
-    && set -ex \
+RUN install_packages gnupg dirmngr
+RUN set -ex \
     && for key in \
         94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
         FD3A5288F042B6850C66B31F09FE44734EB7990E \
@@ -52,7 +52,8 @@ RUN install_packages \
 RUN cd / \
     && npm install npm \
     && rm -rf /usr/local/lib/node_modules/ \
-    && mv node_modules/ /usr/local/lib/
+    && mv node_modules/ /usr/local/lib/ \
+    && chown -R node:node /home/node
 
 USER node
 CMD ["node"]
