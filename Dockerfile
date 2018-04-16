@@ -1,16 +1,20 @@
 FROM debian:stretch-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=C
 
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 8.11.1
+
+ADD 01_nodoc /etc/dpkg/dpkg.cfg.d/
+ADD 02_nolocale /etc/dpkg/dpkg.cfg.d/
 
 RUN groupadd --gid 1000 node \
     && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
 
 RUN apt-get update -q -q \
     && apt-get upgrade --yes \
-    && apt-get install --yes \
+    && apt-get install --no-install-recommends --yes \
         ca-certificates \
         curl \
         dirmngr \
@@ -26,9 +30,12 @@ RUN apt-get update -q -q \
         xz-utils \
         zlib1g \
     && rm -rf /usr/share/locale/* \
-        /usr/share/man/* \
         /usr/share/doc/* \
-        /usr/share/doc/*/copyright
+        /usr/share/groff/* \
+        /usr/share/info/* \
+        /usr/share/linda/* \
+        /usr/share/lintian/* \
+        /usr/share/man/*
 
 # Node release team GPG keys
 # https://github.com/nodejs/node#release-team
