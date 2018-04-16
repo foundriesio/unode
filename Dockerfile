@@ -1,10 +1,6 @@
-FROM bitnami/minideb
+FROM debian:stretch-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
-
-ENV DISABLE_WELCOME_MESSAGE 1
-ENV NAMI_DEBUG 1
-ENV DISABLE_LAUNCH_TRACKING 1
 
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 8.11.1
@@ -12,9 +8,30 @@ ENV NODE_VERSION 8.11.1
 RUN groupadd --gid 1000 node \
     && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
 
+RUN apt-get update -q -q \
+    && apt-get upgrade --yes \
+    && apt-get install --yes \
+        ca-certificates \
+        curl \
+        dirmngr \
+        g++ \
+        git \
+        gnupg \
+        libbz2-1.0 \
+        libc6 \
+        libssl1.1 \
+        make \
+        python \
+        tar \
+        xz-utils \
+        zlib1g \
+    && rm -rf /usr/share/locale/* \
+        /usr/share/man/* \
+        /usr/share/doc/* \
+        /usr/share/doc/*/copyright
+
 # Node release team GPG keys
 # https://github.com/nodejs/node#release-team
-RUN install_packages gnupg dirmngr
 RUN set -ex \
     && for key in \
         94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
@@ -29,17 +46,7 @@ RUN set -ex \
     gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys "$key" ; \
   done
 
-RUN install_packages \
-    ca-certificates \
-    curl \
-    git \
-    tar \
-    xz-utils \
-    libc6 \
-    libssl1.1 \
-    zlib1g \
-    libbz2-1.0 \
-    && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
+RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
     && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
     && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
     && grep " node-v$NODE_VERSION-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
