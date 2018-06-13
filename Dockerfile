@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 8.11.2
+ENV NODE_VERSION 8.11.3
 
 ADD 01_nodoc /etc/dpkg/dpkg.cfg.d/
 ADD 02_nolocale /etc/dpkg/dpkg.cfg.d/
