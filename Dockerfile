@@ -2,7 +2,7 @@ FROM debian:stretch-slim
 
 ENV LANG=C
 
-ENV NODE_VERSION 8.11.4
+ENV NODE_VERSION 8.12
 
 ADD 01_nodoc /etc/dpkg/dpkg.cfg.d/
 ADD 02_nolocale /etc/dpkg/dpkg.cfg.d/
