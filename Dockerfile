@@ -62,7 +62,7 @@ RUN groupadd --gid 1000 node \
 # Update npm to the latest version and move the node_modules/ dir in
 # place. Should prevent weird errors when running 'npm install' afterwards.
 RUN cd / \
-    && npm install -q npm \
+    && npm install npm \
     && rm -rf /usr/local/lib/node_modules/ \
     && mv node_modules/ /usr/local/lib/ \
     && chown -R node:node /home/node
