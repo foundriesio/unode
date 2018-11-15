@@ -39,7 +39,7 @@ RUN apt-get update -q=2 \
         C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
         DD8F2338BAE7501E3DD5AC78C273792F7D83545D \
         ; do \
-            gpg --recv-keys "$key" ; \
+            gpg --no-tty --recv-keys "$key" ; \
         done \
     && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
     && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
