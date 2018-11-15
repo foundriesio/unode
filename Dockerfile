@@ -27,7 +27,7 @@ RUN apt-get update -q=2 \
         /usr/share/lintian/* \
         /usr/share/man/* \
 # Node release team GPG keys
-# https://github.com/nodejs/node#release-team
+# https://github.com/nodejs/node#release-keys
     && set -ex \
     && for key in \
         94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
